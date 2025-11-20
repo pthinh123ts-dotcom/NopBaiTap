@@ -82,6 +82,8 @@ CREATE TABLE `Group`(
 
 
 
+
+
 INSERT INTO `Group`	(  GroupName			, CreatorID		, CreateDate)
 VALUES 				(N'Testing System'		,   5			,'20-11-2025'),
 					(N'Development'			,   1			,'20-11-2025'),
@@ -125,13 +127,27 @@ CREATE TABLE TypeQuestion (
     TypeName 		ENUM('Essay','Multiple-Choice') NOT NULL UNIQUE KEY
 );
 
+INSERT INTO TypeQuestion	(TypeName			) 
+VALUES 						('Essay'			), 
+							('Multiple-Choice'	); 
+
 -- Tạo table 7: CategoryQuestion
 DROP TABLE IF EXISTS CategoryQuestion;
 CREATE TABLE CategoryQuestion(
     CategoryID				TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     CategoryName			NVARCHAR(50) NOT NULL UNIQUE KEY
 );
-
+INSERT INTO CategoryQuestion		(CategoryName	)
+VALUES 								('Java'			),
+									('ASP.NET'		),
+									('ADO.NET'		),
+									('SQL'			),
+									('Postman'		),
+									('Ruby'			),
+									('Python'		),
+									('C++'			),
+									('C Sharp'		),
+									('PHP'			);
 -- Tạo table 8: Question
 DROP TABLE IF EXISTS Question;
 CREATE TABLE Question(
@@ -145,6 +161,17 @@ CREATE TABLE Question(
     FOREIGN KEY(TypeID) 		REFERENCES TypeQuestion(TypeID) ON DELETE CASCADE,
     FOREIGN KEY(CreatorID) 		REFERENCES `Account`(AccountId) ON DELETE CASCADE 
 );
+INSERT INTO Question	(Content			, CategoryID, TypeID		, CreatorID	, CreateDate )
+VALUES 					(N'Câu hỏi về Java'	,	1		,   '1'			,   '2'		,'2025-04-05'),
+						(N'Câu Hỏi về PHP'	,	10		,   '2'			,   '2'		,'2025-04-05'),
+						(N'Hỏi về C#'		,	9		,   '2'			,   '3'		,'2025-04-06'),
+						(N'Hỏi về Ruby'		,	6		,   '1'			,   '4'		,'2025-04-06'),
+						(N'Hỏi về Postman'	,	5		,   '1'			,   '5'		,'2025-04-06'),
+						(N'Hỏi về ADO.NET'	,	3		,   '2'			,   '6'		,'2025-04-06'),
+						(N'Hỏi về ASP.NET'	,	2		,   '1'			,   '7'		,'2025-04-06'),
+						(N'Hỏi về C++'		,	8		,   '1'			,   '8'		,'2025-04-07'),
+						(N'Hỏi về SQL'		,	4		,   '2'			,   '9'		,'2025-04-07'),
+						(N'Hỏi về Python'	,	7		,   '1'			,   '10'	,'2025-04-07');
 
 -- Tạo table 9: Answer
 DROP TABLE IF EXISTS Answer;
@@ -156,6 +183,17 @@ CREATE TABLE Answer(
     FOREIGN KEY(QuestionID) REFERENCES Question(QuestionID) ON DELETE CASCADE
 );
 
+INSERT INTO Answer	(  Content		, QuestionID	, isCorrect	)
+VALUES 				(N'Trả lời 01'	,   1			,	0		),
+					(N'Trả lời 02'	,   1			,	1		),
+                    (N'Trả lời 03'	,   1			,	0		),
+                    (N'Trả lời 04'	,   1			,	1		),
+                    (N'Trả lời 05'	,   2			,	1		),
+                    (N'Trả lời 06'	,   3			,	1		),
+                    (N'Trả lời 07'	,   4			,	0		),
+                    (N'Trả lời 08'	,   8			,	0		),
+                    (N'Trả lời 09'	,   9			,	1		),
+                    (N'Trả lời 10'	,   10			,	1		);
 
 -- Tạo table 10: Exam
 DROP TABLE IF EXISTS Exam;
@@ -171,6 +209,19 @@ CREATE TABLE Exam(
     FOREIGN KEY(CreatorID) 	REFERENCES `Account`(AccountId) ON DELETE CASCADE
 );
 
+
+INSERT INTO Exam	(`Code`			, Title					, CategoryID	, Duration	, CreatorID		, CreateDate )
+VALUES 				('VTIQ001'		, N'Đề thi C#'			,	1			,	60		,   '5'			,'2019-04-05'),
+					('VTIQ002'		, N'Đề thi PHP'			,	10			,	60		,   '2'			,'2019-04-05'),
+                    ('VTIQ003'		, N'Đề thi C++'			,	9			,	120		,   '2'			,'2019-04-07'),
+                    ('VTIQ004'		, N'Đề thi Java'		,	6			,	60		,   '3'			,'2020-04-08'),
+                    ('VTIQ005'		, N'Đề thi Ruby'		,	5			,	120		,   '4'			,'2020-04-10'),
+                    ('VTIQ006'		, N'Đề thi Postman'		,	3			,	60		,   '6'			,'2020-04-05'),
+                    ('VTIQ007'		, N'Đề thi SQL'			,	2			,	60		,   '7'			,'2020-04-05'),
+                    ('VTIQ008'		, N'Đề thi Python'		,	8			,	60		,   '8'			,'2020-04-07'),
+                    ('VTIQ009'		, N'Đề thi ADO.NET'		,	4			,	90		,   '9'			,'2020-04-07'),
+                    ('VTIQ010'		, N'Đề thi ASP.NET'		,	7			,	90		,   '10'		,'2020-04-08');
+                    
 -- Tạo table 11: ExamQuestion
 DROP TABLE IF EXISTS ExamQuestion;
 CREATE TABLE ExamQuestion(
@@ -181,8 +232,27 @@ CREATE TABLE ExamQuestion(
     PRIMARY KEY (ExamID,QuestionID)
 );
  
+ INSERT INTO ExamQuestion(ExamID	, QuestionID	) 
+VALUES 					(	1	,		5		),
+						(	2	,		10		), 
+						(	3	,		4		), 
+						(	4	,		3		), 
+						(	5	,		7		), 
+						(	6	,		10		), 
+						(	7	,		2		), 
+						(	8	,		10		), 
+						(	9	,		9		), 
+						(	10	,		8		); 
 
 
+
+
+
+
+-- BUỔI 3
+
+
+SELECT 		* FROM 		Department;
 
 
 
